@@ -7,6 +7,7 @@ namespace VerifyTests
         readonly string? stringData;
         readonly Stream? streamData;
         public string Extension { get; }
+        public OnDiff? OnDiff { get; }
 
         public Stream StreamData
         {
@@ -38,7 +39,7 @@ namespace VerifyTests
 
         public bool IsString { get => stringData != null; }
 
-        public Target(string extension, Stream streamData)
+        public Target(string extension, Stream streamData, OnDiff? onDiff)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(streamData, nameof(streamData));
@@ -49,11 +50,12 @@ namespace VerifyTests
             }
 
             Extension = extension;
+            OnDiff = onDiff;
             this.streamData = streamData;
             stringData = null;
         }
 
-        public Target(string extension, string stringData)
+        public Target(string extension, string stringData, OnDiff? onDiff)
         {
             Guard.AgainstBadExtension(extension, nameof(extension));
             Guard.AgainstNull(stringData, nameof(stringData));
@@ -63,6 +65,7 @@ namespace VerifyTests
             }
 
             Extension = extension;
+            OnDiff = onDiff;
             this.stringData = stringData;
             streamData = null;
         }
